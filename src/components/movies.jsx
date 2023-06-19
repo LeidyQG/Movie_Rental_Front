@@ -8,7 +8,8 @@ import { paginate } from "../utils/paginate";
 import { getMovies, deleteMovie } from "../services/movieService";
 import { getGenres } from "../services/genreService";
 import SearchBox from "./searchBox";
-import _ from "lodash";
+import orderBy from "lodash/orderBy";
+
 
 class Movies extends Component {
   state = {
@@ -86,7 +87,8 @@ class Movies extends Component {
     else if (selectedGenre && selectedGenre._id)
       filtered = allMovies.filter(m => m.genre._id === selectedGenre._id);
 
-    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+    const sorted = orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
 
     const movies = paginate(sorted, currentPage, pageSize);
 
